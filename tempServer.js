@@ -1,9 +1,8 @@
 const express = require('express');
-const { default: mongoose } = require('mongoose');
 
 const app = express();
 
-const mangoose = require('mongoose');
+const mongo = require('mongoose');
 
 app.use(express.json());
 
@@ -12,15 +11,29 @@ app.listen(3200);
 let users = [
     {
         'id': 1,
-        'name': 'Abhi'
+        'name': 'Abhi',
+        'address':{
+            city: 'Udaipur',
+            Pincode: 1222
+        }
     },
     {
         'id': 2,
-        'name':'rohit'
+        'name':'Rohit',
+        address:
+        {
+            city: 'Jaipur',
+            Pincode: 12555
+        }
     },
     {
         'id': 3,
-        'name': 'kartik'
+        'name': 'Kartik',
+        address:
+        {
+            city: 'Hamirpur',
+            Pincode: 12745
+        }
     }
 ];
 
@@ -125,17 +138,17 @@ function postSignUp(req, res)
     });
 }
 
-mongoose.connect(db_line).then(
-    {
-        function(db)
-        {
-            console.log("DataBase Connected");
-        }
-    }
-).catch(
+const url = 'mongodb+srv://user_31:N69OQzrpgctyr9E0@cluster0.jsm79.mongodb.net/thisShit?retryWrites=true&w=majority';
+
+//console.log(url);
+
+mongo.connect(url).then((db)=>
+{
+    console.log("connected to the server");
+    console.log(db);
+}).catch(
     function(err)
     {
         console.log(err);
     }
-)
-
+);
