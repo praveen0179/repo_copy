@@ -1,4 +1,5 @@
 const express = require('express');
+const { default: mongoose } = require('mongoose');
 
 const app = express();
 
@@ -124,4 +125,17 @@ function postSignUp(req, res)
     });
 }
 
+mongoose.connect(db_line).then(
+    {
+        function(db)
+        {
+            console.log("DataBase Connected");
+        }
+    }
+).catch(
+    function(err)
+    {
+        console.log(err);
+    }
+)
 
