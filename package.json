@@ -1,0 +1,11 @@
+{
+  "name": "express_project",
+  "version": "1.0.0",
+  "description": "Q.1 Why do we Need express when we can have server made from NodeJs.\r Ans-->  (1). Syntax Easy to Write.\r         (2). Code read.\r         (3). Update.\r         (4). Secure and faster due to inbuilt function implemented.\r         (5). Server side logic not required to implement from start.\r         (6).",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

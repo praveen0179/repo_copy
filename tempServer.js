@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+const mangoose = require('mongoose');
+
 app.use(express.json());
 
 app.listen(3200);
@@ -22,14 +24,27 @@ let users = [
 ];
 
 const userRouter = express.Router();
-app.use('/user', userRouter);
-
 const authRouter = express.Router();
+
+app.use('/user', userRouter);
 app.use('/Auth', authRouter);
 
 userRouter.route('/').get(getUser).post(postUser).patch(updateUser).delete(deleteUser);
 
 userRouter.route('/:id').get(getUserById);
+
+authRouter.route('/signUp').get(middleWare, getSignUp, middleWareX).post(postSignUp);
+
+function middleWare(req, res, next)
+{
+    console.log("Middle ware reached");
+    next();
+}
+
+function middleWareX(req, res)
+{
+    console.log("middleWare x reached");
+}
 
 function getUser(req, res)
 {
@@ -87,6 +102,26 @@ function getUserById(req, res)
         message: "Id received successfully",
     }
     )
+}
+
+function getSignUp(req, res, next)
+{
+    console.log("On get SignUP");
+    res.sendFile('./public/index.html', {root:__dirname});
+    next();
+}
+
+function postSignUp(req, res)
+{
+    let obj = req.body;
+    //console.log();
+    //console.log("on postSignUp");
+    console.log("obj ", obj);
+
+    res.json({
+        message: "user signed up",
+        data: obj
+    });
 }
 
 
