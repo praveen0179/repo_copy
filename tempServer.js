@@ -1,3 +1,5 @@
+const userModel = require('./internalFiles/modelApp/mongo.js');
+
 const express = require('express');
 
 const app = express();
@@ -46,7 +48,7 @@ app.use('/Auth', authRouter);
 userRouter.route('/').get(getUser).post(postUser).patch(updateUser).delete(deleteUser);
 
 userRouter.route('/:id').get(getUserById);
-
+    
 authRouter.route('/signUp').get(middleWare, getSignUp, middleWareX).post(postSignUp);
 
 function middleWare(req, res, next)
@@ -57,12 +59,18 @@ function middleWare(req, res, next)
 
 function middleWareX(req, res)
 {
+    res.sendFile('./public/index.html', {root:__dirname});
     console.log("middleWare x reached");
 }
 
-function getUser(req, res)
+async function getUser(req, res)
 {
-    res.send(users);
+    let allUsers = await userModel.find();
+
+    res.json({
+        message: "list of all users",
+        data: allUsers
+    });
 }
 
 function postUser(req, res)
@@ -77,9 +85,18 @@ function postUser(req, res)
     });
 }
 
-function updateUser(req, res)
+async function updateUser(req, res)
 {
-    console.log(req.body);
+    let dataToUpd = req.body;
+
+    let user = await userModel.findOneAndUpdate({email:'jk2@ff.com'}, dataToUpd);
+
+    res.json(
+        {
+            message: "Updated successfully"
+        }
+    );
+    /*console.log(req.body);
 
     let dataToUpd = req.body;
 
@@ -91,16 +108,19 @@ function updateUser(req, res)
     res.json({
         message: "Updated-successfully",
         user: req.body
-    });
+    });*/
 }
 
-function deleteUser(req, res)
+async function deleteUser(req, res)
 {
-    users = {};
+    //users = {};
 
+    let dataTodel= req.body;
+    let user = await userModel.findOneAndDelete(dataTodel);
     res.json(
     {
-        message: "Deleted-Successfully"
+        message: "Deleted-Successfully",
+        data: user
     });
 }
 
@@ -108,70 +128,32 @@ function getUserById(req, res)
 {
     res.send(users[req.params.id]);
 
-//    users[req.params.id] = ;
     res.send(users[req.params.id]);
 
     res.json(
     {
         message: "Id received successfully",
     }
-    )
+    );
 }
 
 function getSignUp(req, res, next)
 {
-    console.log("On get SignUP");
-    res.sendFile('./public/index.html', {root:__dirname});
+    //console.log("On get SignUP"); 
     next();
 }
 
-function postSignUp(req, res)
+async function postSignUp(req, res)
 {
-    let obj = req.body;
+    //let obj = req.body;
     //console.log();
     //console.log("on postSignUp");
-    console.log("obj ", obj);
+    //console.log("obj ", obj);
+    let dataObj = req.body;
+    let data = await userModel.create(dataObj);
 
     res.json({
         message: "user signed up",
-        data: obj
+        user: data
     });
 }
-
-const url = 'mongodb+srv://user_31:N69OQzrpgctyr9E0@cluster0.jsm79.mongodb.net/thisShit?retryWrites=true&w=majority';
-
-//console.log(url);
-
-mongo.connect(url).then((db)=>
-{
-    console.log("connected to the server");
-    console.log(db);
-}).catch(
-    function(err)
-    {
-        console.log(err);
-    }
-);
-
-//UserSchema
-const userSchema = mongoose.Schema({
-    name:{
-        type: String,
-        required: true
-    },
-    email:{
-        type: String,
-        required: true,
-        unique: true
-    },
-    password:{
-        type: String,
-        required: true
-    },
-    confirm_password:{
-        type: string,
-        required: true
-    }
-});
-
-//model

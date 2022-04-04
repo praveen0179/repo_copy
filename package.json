@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "email-validator": "^2.0.4",
     "mongod": "^2.0.0",
     "mongoose": "^6.2.9"
   }
