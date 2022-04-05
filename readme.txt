@@ -9,3 +9,11 @@ Ans-->  (1). Syntax Easy to Write.
 Q.2 What is middleware?
 Ans--> functions which comes in between the request(browser) and response(server) are called middleware, which used for doing extra work on request and response.
 
+JWT -->
+        consist of Header,      Payload, Signature.
+                Algorithm(algo),   UID    , Secret key+UID+ALGO
+
+Software in use-->
+        PostMan.
+        VsCode.
+        NodeJs
