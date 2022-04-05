@@ -6,9 +6,13 @@ const app = express();
 
 const mongo = require('mongoose');
 
+const cookieParser = require('cookie-parser');
+
 app.use(express.json());
 
 app.listen(3200);
+
+app.use(cookieParser());
 
 let users = [
     {
@@ -47,8 +51,12 @@ app.use('/Auth', authRouter);
 
 userRouter.route('/').get(getUser).post(postUser).patch(updateUser).delete(deleteUser);
 
+userRouter.route('/getCookies').get(getCookies);
+
+userRouter.route('/setCookies').get(setCookies);
+
 userRouter.route('/:id').get(getUserById);
-    
+
 authRouter.route('/signUp').get(middleWare, getSignUp, middleWareX).post(postSignUp);
 
 function middleWare(req, res, next)
@@ -156,4 +164,16 @@ async function postSignUp(req, res)
         message: "user signed up",
         user: data
     });
+}
+
+function setCookies(req, res)
+{
+    //res.setHeader('Set-Cookies', "isLoggedIn=true");
+    res.cookie('isLoggedIn', true, {maxAge:1000*60*60*24, secure:true, httpOnly:true});
+    res.send('Cookies has been set');
+}
+
+function getCookies(req, res)
+{
+
 }
