@@ -12,7 +12,17 @@
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "email-validator": "^2.0.4",
+    "jsonwebtoken": "^8.5.1",
     "mongod": "^2.0.0",
     "mongoose": "^6.2.9"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/praveen0179/repo_copy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/praveen0179/repo_copy/issues"
+  },
+  "homepage": "https://github.com/praveen0179/repo_copy#readme"
 }

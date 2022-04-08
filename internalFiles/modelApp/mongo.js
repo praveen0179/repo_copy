@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 
 const url = 'mongodb+srv://user_31:N69OQzrpgctyr9E0@cluster0.jsm79.mongodb.net/thisShit?retryWrites=true&w=majority';
 
+const link = "mongodb://localhost:27017";
 
 //UserSchema
 const userSchema = mongo.Schema({
@@ -35,6 +36,15 @@ const userSchema = mongo.Schema({
         {
             return this.confirm_password == this.password;
         }
+    },
+    role:{
+        type:String,
+        enum:['admin', 'user','restra', 'delivery_boy'],
+        default:'user'
+    },
+    profileImg:{
+        type:String,
+        default:'img/Users/default.jpg'
     }
 });
 
