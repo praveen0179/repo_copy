@@ -14,34 +14,6 @@ app.listen(3200);
 
 app.use(cookieParser());
 
-let users = [
-    {
-        'id': 1,
-        'name': 'Abhi',
-        'address':{
-            city: 'Udaipur',
-            Pincode: 1222
-        }
-    },
-    {
-        'id': 2,
-        'name':'Rohit',
-        address:
-        {
-            city: 'Jaipur',
-            Pincode: 12555
-        }
-    },
-    {
-        'id': 3,
-        'name': 'Kartik',
-        address:
-        {
-            city: 'Hamirpur',
-            Pincode: 12745
-        }
-    }
-];
 
 const userRouter1 = require('./internalFiles/modelApp/routes/userRouter.js');
 const authRouter1 = require('./internalFiles/modelApp/routes/authRouter.js');

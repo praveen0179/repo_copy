@@ -1,6 +1,6 @@
 const userModel = require('../modelApp/mongo');
 
-async function getUser(req, res)
+module.exports.getUser = async function getUser(req, res)
 {
     let id = req.params.id;
     let users = await await userModel.findById(id);
@@ -20,7 +20,7 @@ async function getUser(req, res)
     }
 }
 
-function postUser(req, res)
+module.exports.postUser = function postUser(req, res)
 {
     console.log(req.body);
 
@@ -32,7 +32,7 @@ function postUser(req, res)
     });
 }
 
-async function updateUser(req, res)
+module.exports.updateUser = async function updateUser(req, res)
 {
     try
     {
@@ -93,7 +93,7 @@ async function updateUser(req, res)
     });*/
 }
 
-async function deleteUser(req, res)
+module.exports.deleteUser = async function deleteUser(req, res)
 {
     try
     {
@@ -145,7 +145,7 @@ module.exports.getAllUser = async function getAllUser(req, res)
     )
 }
 
-function getUserById(req, res)
+module.exports.getUserById = function getUserById(req, res)
 {
     res.send(users[req.params.id]);
 
@@ -158,46 +158,35 @@ function getUserById(req, res)
     );
 }
 
-function setCookies(req, res)
-{
-    res.cookie('isLoggedIn', true, {maxAge:1000*60*60*24, secure:true, httpOnly:true});
-    res.send('Cookies has been set');
-}
+// function setCookies(req, res)
+// {
+//     res.cookie('isLoggedIn', true, {maxAge:1000*60*60*24, secure:true, httpOnly:true});
+//     res.send('Cookies has been set');
+// }
 
-function getCookies(req, res)
-{
-    let cookie = req.cookies;
-    console.log(cookie);
+// function getCookies(req, res)
+// {
+//     let cookie = req.cookies;
+//     console.log(cookie);
 
-    res.send("Cookies received");
-}
+//     res.send("Cookies received");
+// }
 
-function protectRoute(req, res, next)
-{
-    console.log(req.cookies.isLoggedIn);
-    if(req.cookies.isLoggedIn)
-    {
-        console.log("here");
-        next();
-    }
-    else
-    {
-        return res.json(
-            {
-                message: "Operation not allowed"
-            }
-        );
-    }
-}
+// function protectRoute(req, res, next)
+// {
+//     console.log(req.cookies.isLoggedIn);
+//     if(req.cookies.isLoggedIn)
+//     {
+//         console.log("here");
+//         next();
+//     }
+//     else
+//     {
+//         return res.json(
+//             {
+//                 message: "Operation not allowed"
+//             }
+//         );
+//     }
+// }
 
-module.exports = 
-{
-    getUser: getUser,
-    postUser: postUser,
-    deleteUser:deleteUser,
-    updateUser: updateUser,
-    getUserById: getUserById,
-    getCookies:getCookies,
-    setCookies: setCookies,
-    protectRoute:protectRoute
-};
